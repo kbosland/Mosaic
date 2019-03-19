@@ -1,0 +1,58 @@
+﻿@model Mosaic.Models.Email;
+
+@{
+    ViewData["Title"] = "SentMail";
+}
+
+@{
+    List<Email> emails = (List<Email>)ViewData["Inbox"];
+    string username = (string)ViewData["CurrentUser"];
+}
+
+<h2>Sent Mail Folder: @username</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Receiver)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in emails)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Receiver)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Message)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <div hidden="hidden"> <input type="text" id="message" name="message" value="@item.Message" /> </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+
+<a asp-controller="Emails" asp-action="Menu">Back to Email Menu</a>

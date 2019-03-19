@@ -1,0 +1,68 @@
+﻿@model  Mosaic.Models.Student;
+
+@{
+    ViewData["Title"] = "LoginStudent";
+}
+
+@{ 
+    List<Student> users = (List<Student>)ViewData["Users"];
+    List<string> usernames = new List<string>();
+
+    foreach (Student s in users)
+    {
+        usernames.Add(s.Username);
+    }
+
+    string errorMessage = (string)ViewData["ErrorMsg"];
+}
+
+<h2>Login</h2>
+
+<h4>Student</h4>
+
+<h5>@errorMessage</h5>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="LoginStudent">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username"  class="form-control" required id="username" onchange="validate()"/>
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password"  class="form-control" type="password" required id="password"/>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-default" onclick="return validate()"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="ChangePassword"><hr /> Forgot Password </a>
+</div>
+<script type="text/javascript">
+
+    function validate(password) {
+        var users = @Json.Serialize(usernames);
+        var uName = document.getElementById("username").value;
+        var numUsers = @usernames.Count;
+        
+        var i;
+        for (i = 0; i < numUsers; i++) {
+            if (uName == users[i]) {
+                document.getElementById("username").style.backgroundColor = "LightGreen";
+                return true;
+            }
+        }
+
+        document.getElementById("username").style.backgroundColor = "LightCoral";
+        alert("Incorrect username, the user could not be found!");
+        return false;
+    }
+</script>

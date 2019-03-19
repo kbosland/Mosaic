@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "CannotCreateStudent";
+}
+
+@{ 
+    var errorMsg = TempData["ErrorMessage"];
+}
+
+<h2>Error - @errorMsg</h2>
+
+<p> If the error persists even after you have tried to correct the issue(s), let me know. <br /> - Kael Bosland </p>
+
+<img src="~/images/usernametaken.jpg" />
+
+<div>
+    <a asp-action="CreateStudent">Back to Create Student</a>
+</div>
+
+

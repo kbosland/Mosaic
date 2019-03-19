@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Mosaic.Models.Class>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <thead>
+        <tr>    
+                <th>
+                    @Html.DisplayNameFor(model => model.ClassCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ClassName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumEnrolled)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaxEnroll)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProfessorId)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.ClassCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumEnrolled)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxEnroll)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProfessorId)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

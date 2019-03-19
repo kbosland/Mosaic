@@ -1,0 +1,85 @@
+﻿@model Mosaic.Models.Email;
+
+@{
+    ViewData["Title"] = "Inbox";
+}
+
+@{
+    List<Email> emails = (List<Email>)ViewData["Inbox"];
+    string username = (string)ViewData["CurrentUser"];
+}
+
+<h2>Inbox: @username</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Sender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in emails)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Message)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <form action="Reply">
+                        <div hidden="hidden"> <input type="text" id="subject" name="subject" value="@item.Subject" /> </div>
+                        <div hidden="hidden"> <input type="text" id="sender" name="sender" value="@item.Sender" /> </div>
+                        <div class="form-group">
+                            <input type="submit" value="Reply" class="btn btn-default" />
+                        </div>
+                    </form>
+                </td>
+                <td>
+                    <form action="Forward">
+                        <div hidden="hidden"> <input type="text" id="subject" name="subject" value="@item.Subject" /> </div>
+                        <div hidden="hidden"> <input type="text" id="sender" name="sender" value="@item.Sender" /> </div>
+                        <div hidden="hidden"> <input type="text" id="message" name="message" value="@item.Message" /></div>
+                        <div class="form-group">
+                            <input type="submit" value="Forward" class="btn btn-default" />
+                        </div>
+                    </form>
+                </td>
+                <td>
+                    <form action="Read">
+                        <div hidden="hidden"> <input type="number" name="id" value="@item.Id" /> </div>
+                        <div class="form-group">
+                            <input type="submit" value="Mark as Read" class="btn btn-default" />
+                        </div>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+
+<a asp-controller="Emails" asp-action="Menu">Back to Email Menu</a>

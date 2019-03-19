@@ -1,0 +1,44 @@
+﻿@model Mosaic.Models.Announcement;
+
+@{
+    ViewData["Title"] = "MakeAnnouncement";
+}
+
+@{ 
+    string classOne = (string)ViewData["ClassOne"];
+}
+
+<h2>Make an Announcement</h2>
+<h4>Announcement for: @classOne</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="MakeAnnouncement">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Enter Announcement</label>
+                <textarea style="height:200px" class="form-control" name="announcementText" id="announcement" required></textarea>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Send Announcement" class="btn btn-default" onclick="return confirmation()"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr />
+
+<a asp-controller="Professors" asp-action="EmailMenu">Back to Email Menu</a>
+
+<script type="text/javascript">
+    function confirmation() {
+
+        if (document.getElementById("announcement").value != null) {
+            alert("The announcement was sent successfully!");
+            return true;
+        }
+
+        alert("The announcement cannot be empty!");
+        return false;
+    }
+</script>

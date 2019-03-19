@@ -1,0 +1,155 @@
+﻿@model Mosaic.Models.Class;
+
+@{
+    ViewData["Title"] = "EnrollInClass";
+}
+
+@{
+    string classOne = (string)ViewData["ClassOne"];
+    string classTwo = (string)ViewData["ClassTwo"];
+    List<Class> allClasses = (List<Class>)ViewData["Classes"];
+    List<string> classCodes = new List<string>();
+
+    foreach (Class c in allClasses)
+    {
+        if (!(c.ClassCode.Equals(classOne) || c.ClassCode.Equals(classTwo)))
+        {
+            classCodes.Add(c.ClassCode);
+        }
+    }
+}
+
+<h2>Enroll In Class</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EnrollInClass" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ClassCode" class="control-label"></label>
+                <input asp-for="ClassCode" class="form-control" required id="classCode" />
+                <span asp-validation-for="ClassCode" class="text-danger"></span>
+            </div>
+            <div hidden="hidden">
+                <input type="text" name="result" id="resultOfOp"/>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Enroll in Class" class="btn btn-default" onclick="return validate()" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div></div>
+<h3> Course Registry - All Available Classes</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassName)
+            </th>
+            <th>
+                Amount of Students Enrolled
+            </th>
+            <th>
+                Maximum Students Allowed to Enroll
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProfessorId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in allClasses)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClassCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClassName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumEnrolled)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaxEnroll)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProfessorId)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3> Your Classes</h3>
+
+<div> Class One: @classOne</div>
+<div> Class Two: @classTwo <hr /></div>
+<div></div>
+
+<div>
+    <a asp-action="Menu">Back to Main Menu <br /></a>
+    <a asp-action="DropClass">Drop a Class to Make Room!</a>
+</div>
+
+<script type="text/javascript">
+    function validate() {
+        var c1 = @Json.Serialize(classOne);
+        var c2 = @Json.Serialize(classTwo);
+        var codes = @Json.Serialize(classCodes);
+        var numCodes = @classCodes.Count;
+        var i;
+        var classEntry = document.getElementById("classCode").value.toUpperCase();
+
+        if (classEntry == c1 || classEntry == c2) {
+            document.getElementById("classCode").style.backgroundColor = "LightCoral";
+            alert("You are already enrolled in this class!");
+            document.getElementById("resultOfOp").value = 0;
+            return false;
+        } else {
+
+            if (c1 == null) {
+                for (i = 0; i < numCodes; i++) {
+                    if (classEntry == codes[i]) {
+
+                            document.getElementById("classCode").style.backgroundColor = "LightGreen";
+                            alert("Class addition successful! We will add the class in your class 1 slot.");
+                            document.getElementById("resultOfOp").value = 1;
+                            return true;
+                    }
+                }
+                document.getElementById("classCode").style.backgroundColor = "LightCoral";
+                alert("Either the class is full or you have entered an invalid course code! You cannot enroll at this time.");
+                document.getElementById("resultOfOp").value = 0;
+                return false;
+            } else if (c2 == null) {
+                for (i = 0; i < numCodes; i++) {
+                    if (classEntry == codes[i]) {
+
+                            document.getElementById("classCode").style.backgroundColor = "LightGreen";
+                            alert("Class addition successful! We will add the class in your class 2 slot.");
+                            document.getElementById("resultOfOp").value = 2;
+                            return true;
+                    }
+                }
+
+                document.getElementById("classCode").style.backgroundColor = "LightCoral";
+                alert("Either the class is full or you have entered an invalid course code! You cannot enroll at this time.");
+                document.getElementById("resultOfOp").value = 0;
+                return false;
+            } else {
+                document.getElementById("resultOfOp").value = 0;
+                document.getElementById("classCode").style.backgroundColor = "LightCoral";
+                alert("You are already enrolled in two classes! No free spaces.");
+                return false;
+            }
+        }
+    }
+</script>

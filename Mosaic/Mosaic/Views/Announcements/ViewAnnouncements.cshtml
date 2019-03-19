@@ -1,0 +1,90 @@
+﻿@model Mosaic.Models.Announcement;
+
+@{
+    ViewData["Title"] = "ViewAnnouncements";
+}
+
+@{
+    List<Announcement> c1 = (List<Announcement>)ViewData["C1"];
+    List<Announcement> c2 = (List<Announcement>)ViewData["C2"];
+    string classOne = (string)ViewData["ClassOne"];
+    string classTwo = (string)ViewData["ClassTwo"];
+}
+
+<body onload="configure()"></body>
+
+<table id="tableOne" class="table">
+    <thead>
+        <tr>
+            <th style="font-size:x-large"> Announcements for: @classOne </th>
+        <tr>
+    </thead>
+    <tbody>
+        <tr style="font-weight:800">
+            <th> Announcement </th>
+            <th> Professor's Username </th>
+        </tr>
+        <tr id="noannouncements1" style="display:normal">
+            <td> ---- You have no announcements for this class yet! ---- </td>
+            <td></td>
+        </tr>
+        @foreach (var item in c1)
+        {
+            <tr>
+                <td id="text1"> @Html.DisplayFor(modelItem => item.AnnouncementText)</td>
+                <td id="username1"> @Html.DisplayFor(modelItem => item.ProfUsername) </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+
+<table id="tableTwo" class="table">
+    <thead>
+        <tr>
+            <th style="font-size:x-large"> Announcements for: @classTwo </th>
+        <tr>
+    </thead>
+    <tbody>
+        <tr style="font-weight:800">
+            <th> Announcement </th>
+            <th> Professor's Username </th>
+        </tr>
+        <tr id="noannouncements2" style="display:normal">
+            <td> ---- You have no announcements for this class yet! ---- </td>
+            <td></td>
+        </tr>
+        @foreach (var item in c2)
+        {
+            <tr>
+                <td id="text2"> @Html.DisplayFor(modelItem => item.AnnouncementText)</td>
+                <td id="username2" > @Html.DisplayFor(modelItem => item.ProfUsername) </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="Students" asp-action="EmailMenu">Back to Email Menu</a>
+
+<script type="text/javascript">
+    function configure() {
+        var classOne = @Json.Serialize(classOne);
+        var classTwo = @Json.Serialize(classTwo);
+        var Announcements1 = @Json.Serialize(c1);
+        var Announcements2 = @Json.Serialize(c2);
+
+        if (classOne == "") {
+            document.getElementById("tableOne").style.display = "none";
+        }
+        if (classTwo == "") {
+            document.getElementById("tableTwo").style.display = "none";
+        }
+        if (@c1.Count > 0) {
+            document.getElementById("noannouncements1").style.display = "none";
+        }
+        if (@c2.Count > 0) {
+            document.getElementById("noannouncements2").style.display = "none";
+        }
+    }
+</script>

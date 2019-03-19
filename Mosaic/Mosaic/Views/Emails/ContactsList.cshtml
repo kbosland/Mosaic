@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Inbox";
+}
+
+@{
+    List<Tuple<string, string, string>> users = (List<Tuple<string,string,string>>) ViewData["contacts"];
+}
+
+<h2>Contacts List</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Username
+            </th>
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in users)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item2)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item3)
+                </td>
+                <td>
+                    <form asp-action="SendContactEmail">
+                        <div>
+                            <input type="text" name="receiver", value="@item.Item1" hidden="hidden" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Send them an Email" class="btn btn-default"/>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+
+<a asp-controller="Emails" asp-action="Menu">Back to Email Menu</a>

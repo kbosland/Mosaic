@@ -1,0 +1,53 @@
+﻿@{ViewData["Title"] = "EmailMenu"; }
+
+<h2>Email Menu</h2>
+
+<style>
+    .button {
+        background-color: aqua;
+        border: solid;
+        color: black;
+        padding: 15px;
+        text-align: center;
+        display: inline-block;
+        font-size: 16px;
+        width: 200px;
+    }
+</style>
+
+<h3> Welcome to the Email Menu!</h3>
+
+<div style="height:50px"></div>
+
+<div style="width:600px">
+    <div style="width:300px; float:right;">
+        <img src="~/images/email.gif" alt="logged in successfully" />
+    </div>
+
+    <div style="width:300px; float:left;">
+
+        <form action="/Emails/Inbox">
+            <button class="button" type="submit">Inbox</button>
+        </form>
+
+        <form action="/Emails/Create">
+            <button class="button" type="submit">Send an Email</button>
+        </form>
+
+        <form action="/Emails/ContactsList">
+            <button class="button" type="submit">Contacts List</button>
+        </form>
+
+        <form action="/Emails/SentMail">
+            <button class="button" type="submit">Sent Folder</button>
+        </form>
+
+        <form action="/Announcements/ViewAnnouncements">
+            <button class="button" type="submit"> View Class Announcements </button>
+        </form>
+    </div>
+</div>
+
+<hr />
+
+<a asp-controller="Students" asp-action="Menu"><hr />Back to Main Menu</a>

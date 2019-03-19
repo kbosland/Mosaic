@@ -1,0 +1,56 @@
+﻿@model Mosaic.Models.Professor;
+
+@{
+    ViewData["Title"] = "Menu";
+}
+
+<style>
+    .button {
+        background-color: aqua;
+        border: solid;
+        color: black;
+        padding: 15px;
+        text-align: center;
+        display: inline-block;
+        font-size: 16px;
+        width: 200px;
+    }
+</style>
+
+<h2>Professor Menu</h2>
+
+<h3> Welcome to the Main Menu :)</h3>
+<div style="width:600px">
+
+    <div style="width:300px;">
+
+        <form action="/Professors/EmailMenu">
+            <button class="button" type="submit"> Go To Email</button>
+        </form>
+
+        <form action="/Professors/ChangePassword">
+            <button class="button" type="submit">Change Password</button>
+        </form>
+
+        <form action="/Professors/Index">
+            <button class="button" type="submit">View All Professors</button>
+        </form>
+
+        <form action="/Professors/Edit">
+            <button class="button" type="submit">Check my Profile</button>
+        </form>
+
+        <form action="/Professors/TeachAClass">
+            <button class="button" type="submit">Teach a Class</button>
+        </form>
+
+        <form action="/Professors/DropTeachingAClass">
+            <button class="button" type="submit">Drop Teaching a Class</button>
+        </form>
+
+        <form action="/Professors/Delete">
+            <button class="button" type="submit">End Career</button>
+        </form>
+    </div>
+</div>
+

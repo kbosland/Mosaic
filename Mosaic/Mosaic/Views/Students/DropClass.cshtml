@@ -1,0 +1,88 @@
+﻿@model Mosaic.Models.Class;
+
+@{
+    ViewData["Title"] = "DropClass";
+}
+
+@{ 
+    string classOne = (string)ViewData["ClassOne"];
+    string classTwo = (string)ViewData["ClassTwo"];
+
+    List<Class> allClasses = (List<Class>)ViewData["Classes"];
+    List<string> classCodes = new List<string>();
+
+    foreach (Class c in allClasses)
+    {
+            classCodes.Add(c.ClassCode);
+    }
+}
+
+<h2>Drop a Class</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="DropClass">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ClassCode" class="control-label"></label>
+                <input asp-for="ClassCode" class="form-control" required id="classCode" />
+                <span asp-validation-for="ClassCode" class="text-danger"></span>
+            </div>
+            <div hidden="hidden">
+                <input type="text" name="result" id="resultOfOp" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Drop the Class" class="btn btn-default" onclick="return validate()" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<h3> Your Classes</h3>
+
+<div> Class One: @classOne</div>
+<div> Class Two: @classTwo <hr /></div>
+
+<div>
+    <a asp-action="Menu">Back to Main Menu <br /> </a>
+    <a asp-action="EnrollInClass">Enroll in a Class</a>
+</div>
+
+<script type="text/javascript">
+    function validate() {
+        var classOne = @Json.Serialize(classOne);
+        var classTwo = @Json.Serialize(classTwo);
+        var codes = @Json.Serialize(classCodes);
+        var numCodes = @allClasses.Count;
+        var classEntry = document.getElementById("classCode").value.toUpperCase();
+
+        for (var i = 0; i < numCodes; i++) {
+            if (codes[i] == classEntry) { //class found
+                if (codes[i] == classOne) {
+                    document.getElementById("classCode").style.backgroundColor = "LightGreen";
+                    alert("Class drop successful! You now have a free class one slot");
+                    document.getElementById("resultOfOp").value = 1;
+                    return true;
+                } else if (codes[i] == classTwo) {
+                    document.getElementById("classCode").style.backgroundColor = "LightGreen";
+                    alert("Class drop successful! You now have a free class two slot.");
+                    document.getElementById("resultOfOp").value = 2;
+                    return true;
+                } else {
+                    document.getElementById("classCode").style.backgroundColor = "LightCoral";
+                    alert("You are not enrolled in this class, cannot drop!");
+                    document.getElementById("resultOfOp").value = 0;
+                    return false;
+                }
+            }
+        }
+
+        document.getElementById("classCode").style.backgroundColor = "LightCoral";
+        alert("You have entered an invalid course code! Course could not be found.");
+        document.getElementById("resultOfOp").value = 0;
+        return false;
+
+        
+    }
+
+</script>

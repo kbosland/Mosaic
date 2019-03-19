@@ -1,0 +1,142 @@
+﻿@model Mosaic.Models.Student;
+@using System.Web.Helpers;
+
+@{
+    ViewData["Title"] = "CreateStudent";
+}
+
+@{ 
+    List<string> usernames = (List<string>)ViewData["Usernames"];
+}
+
+<style>
+    input:invalid {
+        border:2px;
+        border-color:red;
+    }
+
+    input:valid {
+        border:2px;
+        border-color:green;
+    }
+</style>
+
+<h2>Create</h2>
+
+<h4>Student</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateStudent" name="creatingstudent">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" class="form-control" required" id="username" onchange="validateUsername()"/>
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" required id="password" onchange="validatePassword()"/>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" required id="firstName"/>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"> </label>
+                <input asp-for="LastName" class="form-control" required id="lastName"/>
+                <span asp-validation-for="LastName" class="text-danger"> </span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClassOne" class="control-label"></label>
+                <select asp-for="ClassOne" class="form-control" asp-items="ViewBag.ClassOne" id="classOne" ></select>
+                <span asp-validation-for="ClassOne" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClassTwo" class="control-label"></label>
+                <select asp-for="ClassTwo" class="form-control" asp-items="ViewBag.ClassTwo" id="classTwo" onblur="validateClasses()"></select>
+                <span asp-validation-for="ClassTwo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="CreateStudent" class="btn btn-default" onclick="return validateAll()"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Menu">Back to Main Menu</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script type="text/javascript">
+    function validateUsername() {
+        var uNames = @Json.Serialize(usernames);
+        var numUsers = @usernames.Count;
+        var username = document.getElementById("username").value;
+        var i;
+        if (username.length >= 5 && username.length <= 20) {
+            for (i = 0; i < numUsers; i++) {
+                if (username == uNames[i]) {
+                    document.getElementById("username").style.backgroundColor = "LightCoral";
+                    alert("The username is already in use!");
+                    return false;
+                }
+            }
+            document.getElementById("username").style.backgroundColor = "LightGreen";
+            return true;
+        } else {
+            document.getElementById("username").style.backgroundColor = "LightCoral";
+
+            alert("The username must be at least 5 characters and at most 20 characters!");
+            return false;
+        }
+    }
+
+    function validatePassword() {
+        var password = document.getElementById("password").value;
+        if (password.length >= 5 && password.length <= 20) {
+            document.getElementById("password").style.backgroundColor = "LightGreen";
+            return true;
+        }
+
+        document.getElementById("password").style.backgroundColor = "LightCoral";
+        alert("The password must be at least 5 characters and at most 20 characters!");
+        return false;
+    }
+
+    function validateClasses() {
+        var classOne = document.getElementById("classOne").value;
+        var classTwo = document.getElementById("classTwo").value;
+
+        if ((classOne == null || classOne == "") && (classTwo == null || classTwo == "")) {
+            document.getElementById("classOne").style.backgroundColor = "LightGreen";
+            document.getElementById("classTwo").style.backgroundColor = "LightGreen";
+            return true;
+        } else {
+            if (classOne == classTwo) {
+                alert("Class One option and Class Two option cannot be the same!");
+                document.getElementById("classOne").style.backgroundColor = "LightCoral";
+                document.getElementById("classTwo").style.backgroundColor = "LightCoral";
+                return false;
+            }
+            document.getElementById("classOne").style.backgroundColor = "LightGreen";
+            document.getElementById("classTwo").style.backgroundColor = "LightGreen";
+            return true;
+        }
+    }
+
+    function validateAll() {
+        var ok = validateUsername() && validatePassword() && validateClasses();
+        if (ok && document.getElementById("firstName").value.length > 1 && document.getElementById("lastName").value.length > 1)  {
+            alert("The student has been registered successfully! Login with your new credentials to activate your account.");
+        }
+        return ok;
+    }
+
+</script>

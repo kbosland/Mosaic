@@ -1,0 +1,17 @@
+C:\Users\kaelb\source\repos\Mosaic\Mosaic.Test\bin\Debug\netcoreapp2.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Users\kaelb\source\repos\Mosaic\Mosaic.Test\bin\Debug\netcoreapp2.0\xunit.runner.reporters.netcoreapp10.dll
+C:\Users\kaelb\source\repos\Mosaic\Mosaic.Test\bin\Debug\netcoreapp2.0\xunit.runner.utility.netcoreapp10.dll
+C:\Users\kaelb\source\repos\Mosaic\Mosaic.Test\bin\Debug\netcoreapp2.0\Mosaic.Test.deps.json
+C:\Users\kaelb\source\repos\Mosaic\Mosaic.Test\bin\Debug\netcoreapp2.0\Mosaic.Test.runtimeconfig.json
+C:\Users\kaelb\source\repos\Mosaic\Mosaic.Test\bin\Debug\netcoreapp2.0\Mosaic.Test.runtimeconfig.dev.json
+C:\Users\kaelb\source\repos\Mosaic\Mosaic.Test\bin\Debug\netcoreapp2.0\Mosaic.Test.dll
+C:\Users\kaelb\source\repos\Mosaic\Mosaic.Test\obj\Debug\netcoreapp2.0\Mosaic.Test.csprojAssemblyReference.cache
+C:\Users\kaelb\source\repos\Mosaic\Mosaic.Test\obj\Debug\netcoreapp2.0\Mosaic.Test.csproj.CoreCompileInputs.cache
+C:\Users\kaelb\source\repos\Mosaic\Mosaic.Test\obj\Debug\netcoreapp2.0\Mosaic.Test.AssemblyInfoInputs.cache
+C:\Users\kaelb\source\repos\Mosaic\Mosaic.Test\obj\Debug\netcoreapp2.0\Mosaic.Test.AssemblyInfo.cs
+C:\Users\kaelb\source\repos\Mosaic\Mosaic.Test\bin\Debug\netcoreapp2.0\Mosaic.dll
+C:\Users\kaelb\source\repos\Mosaic\Mosaic.Test\bin\Debug\netcoreapp2.0\Mosaic.pdb
+C:\Users\kaelb\source\repos\Mosaic\Mosaic.Test\obj\Debug\netcoreapp2.0\Mosaic.Test.csproj.CopyComplete
+C:\Users\kaelb\source\repos\Mosaic\Mosaic.Test\bin\Debug\netcoreapp2.0\Mosaic.Test.pdb
+C:\Users\kaelb\source\repos\Mosaic\Mosaic.Test\obj\Debug\netcoreapp2.0\Mosaic.Test.dll
+C:\Users\kaelb\source\repos\Mosaic\Mosaic.Test\obj\Debug\netcoreapp2.0\Mosaic.Test.pdb

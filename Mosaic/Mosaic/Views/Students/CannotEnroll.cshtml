@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "CannotEnroll";
+}
+
+<h2>Error - Unable to Enroll in Class</h2>
+
+<h4> Usual Issues with Enrollment are Listed Below: </h4>
+
+<ul>
+    <li> The Class Code entered is invalid</li>
+    <li> The Class Code entered corresponds to a class that is already full</li>
+    <li> The Class Code entered corresponds to a class the student is already enrolled in</li>
+</ul>
+
+<p> If the error persists even after you have tried to correct these steps, let me know. <br /> - Kael Bosland </p>
+
+<img src="~/images/failure.gif" alt="Unable to Enroll in Class" />
+
+<div>
+    <a asp-action="EnrollInClass">Back to Enroll Screen</a>
+</div>

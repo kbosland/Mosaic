@@ -1,0 +1,123 @@
+﻿@model Mosaic.Models.Class;
+
+@{
+    ViewData["Title"] = "TeachAClass";
+}
+
+@{
+    string classOne = (string)ViewData["ClassOne"];
+    List<Class> allClasses = (List<Class>)ViewData["Classes"];
+    List<string> classCodes = new List<string>();
+
+    foreach (Class c in allClasses)
+    {
+        if (!(c.ClassCode.Equals(classOne)))
+        {
+            classCodes.Add(c.ClassCode);
+        }
+    }
+}
+
+<h2>Enroll to Teach a Class</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="TeachAClass" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ClassCode" class="control-label"></label>
+                <input asp-for="ClassCode" class="form-control" required id="classCode" />
+                <span asp-validation-for="ClassCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Enroll in Class" class="btn btn-default" onclick="return validate()" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div></div>
+<h3> Course Registry - All Available Classes</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassName)
+            </th>
+            <th>
+                Amount of Students Enrolled
+            </th>
+            <th>
+                Maximum Students Allowed to Enroll
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in allClasses)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClassCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClassName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumEnrolled)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaxEnroll)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3> Your Classes</h3>
+
+<div> Class One: @classOne</div>
+<div></div>
+
+<hr />
+
+<div>
+    <a asp-action="Menu">Back to Main Menu <br /></a>
+    <a asp-action="DropTeachingAClass">Drop a Class to Make Room!</a>
+</div>
+
+<script type="text/javascript">
+    function validate() {
+        var classOne = @Json.Serialize(classOne);
+        var classList = @Json.Serialize(classCodes);
+        var classEntry = document.getElementById("classCode");
+        var numCodes = @allClasses.Count;
+
+        if (classOne == null) {
+            for (var i = 0; i < numCodes; i++) {
+                if (classEntry.value.toUpperCase() == classList[i]) {
+                    classEntry.style.backgroundColor = "LightGreen";
+                    alert("You have successfully sign up to teach this class! It has been added to your class one slot.");
+                    return true;
+                }
+            }
+            classEntry.style.backgroundColor = "LightCoral";
+            alert("Either the class is already being taught or you have entered an invalid course code! Refer to course listings below for available classes");
+            return false;
+
+        } else if (classOne == classEntry.value.toUpperCase()) {
+            classEntry.style.backgroundColor = "LightCoral";
+            alert("You are already teaching this class!");
+            return false;
+        } else {
+            classEntry.style.backgroundColor = "LightCoral";
+            alert("You are already teaching a class!");
+            return false;
+        }
+    }
+</script>
